@@ -1,0 +1,28 @@
+body {
+    background-color: bisque;
+}
+
+.media-scroller {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 40%;
+    column-gap: 1rem;
+
+    overflow-x: auto;
+}
+
+img {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+}
+
+.scroll-snapping {
+    scroll-snap-type: x mandatory;
+    scroll-padding-left: 1rem;
+    scroll-padding-right: 1rem;
+}
+
+.scroll-snapping > * {
+    scroll-snap-align: start;
+}
