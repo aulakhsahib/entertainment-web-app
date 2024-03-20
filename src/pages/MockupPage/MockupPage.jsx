@@ -1,78 +1,97 @@
-import useFetch from "../../hooks/useFetch";
+import { useReducer } from "react";
 import "./MockupPage.css";
-export default function MockupPage() {
-  const { data, isLoading, errorMessage } = useFetch(
-    "https://jsonplaceholder.typicode.com/usrs"
-  );
-  let fetchContentToShow;
-  if (isLoading) fetchContentToShow = "Loading...";
-  else if (errorMessage) fetchContentToShow = errorMessage;
-  else if (!data.length) fetchContentToShow = "Sorry no data found";
-  else {
-    fetchContentToShow = data.map(d => JSON.stringify(d));
-  }
 
+const INCREMENT_COUNT = "incrementCount";
+const DECREMENT_COUNT = "decrementCount";
+const ADD_TO_COUNT = "addToCount";
+const SET_NUMBER_TO_ADD = "setNumberToAdd";
+
+const reducer = (state, action) => {
+  switch (action.type) {
+    case INCREMENT_COUNT:
+      return {
+        ...state,
+        count: state.count + action.payload,
+      };
+    case DECREMENT_COUNT:
+      return {
+        ...state,
+        count: state.count - action.payload,
+      };
+    case ADD_TO_COUNT:
+      return {
+        ...state,
+        count: state.count + state.numberToAdd,
+        numberToAdd: 0,
+      };
+    case SET_NUMBER_TO_ADD:
+      return {
+        ...state,
+        numberToAdd: action.payload,
+      };
+    default:
+      throw new Error(`Unexpected Action Type Received : ${action.type}`);
+  }
+};
+
+export default function MockupPage() {
+  const [state, dispatch] = useReducer(reducer, { count: 0, numberToAdd: 0 });
+  const increment = () => {
+    dispatch({
+      type: INCREMENT_COUNT,
+      payload: 1,
+    });
+  };
+
+  const decrement = () => {
+    if (state.count - 1 < 0) return;
+    dispatch({
+      type: DECREMENT_COUNT,
+      payload: 1,
+    });
+  };
+
+  const numberToAddChangeHandler = (event) => {
+    if (!event.target.value) {
+      dispatch({
+        type: SET_NUMBER_TO_ADD,
+        payload: 0,
+      });
+      return;
+    }
+    dispatch({
+      type: SET_NUMBER_TO_ADD,
+      payload: parseInt(event.target.value),
+    });
+  };
+
+  const submitHandler = (event) => {
+    event.preventDefault();
+    dispatch({
+      type: ADD_TO_COUNT,
+    });
+  };
   return (
     <>
       <header>
         <h1>Mockup Page</h1>
       </header>
       <main>
-        <section className="scroll-snapping-section">
-          <div className="media-scroller scroll-snapping">
-            <div className="media-element">
-              <img src="https://picsum.photos/400/200" alt="placeholder-img" />
-              <p className="title">Placeholder</p>
-            </div>
-
-            <div className="media-element">
-              <img src="https://picsum.photos/400/200" alt="placeholder-img" />
-              <p className="title">Placeholder</p>
-            </div>
-
-            <div className="media-element">
-              <img src="https://picsum.photos/400/200" alt="placeholder-img" />
-              <p className="title">Placeholder</p>
-            </div>
-
-            <div className="media-element">
-              <img src="https://picsum.photos/400/200" alt="placeholder-img" />
-              <p className="title">Placeholder</p>
-            </div>
-
-            <div className="media-element">
-              <img src="https://picsum.photos/400/200" alt="placeholder-img" />
-              <p className="title">Placeholder</p>
-            </div>
-
-            <div className="media-element">
-              <img src="https://picsum.photos/400/200" alt="placeholder-img" />
-              <p className="title">Placeholder</p>
-            </div>
-
-            <div className="media-element">
-              <img src="https://picsum.photos/400/200" alt="placeholder-img" />
-              <p className="title">Placeholder</p>
-            </div>
-
-            <div className="media-element">
-              <img src="https://picsum.photos/400/200" alt="placeholder-img" />
-              <p className="title">Placeholder</p>
-            </div>
-
-            <div className="media-element">
-              <img src="https://picsum.photos/400/200" alt="placeholder-img" />
-              <p className="title">Placeholder</p>
-            </div>
-
-            <div className="media-element">
-              <img src="https://picsum.photos/400/200" alt="placeholder-img" />
-              <p className="title">Placeholder</p>
-            </div>
-          </div>
+        <section id="counter-section">
+          <p>Current Count : {state.count}</p>
+          <button onClick={increment}>Increment</button>
+          <button onClick={decrement}>Decrement</button>
+          <form onSubmit={submitHandler}>
+            <label htmlFor="number-to-add">Add a lot!</label>
+            <input
+              type="number"
+              min={0}
+              value={state.numberToAdd}
+              onChange={numberToAddChangeHandler}
+            />
+            <button type="submit">Add it!</button>
+          </form>
         </section>
-
-        <section id="use-fetch-section">{fetchContentToShow}</section>
       </main>
     </>
   );
