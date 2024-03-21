@@ -1,15 +1,22 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 export default function useFetch(url) {
   const [data, setData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState(null);
+  const abortController = useRef();
   useEffect(() => {
     setIsLoading(true);
     setData(null);
     setErrorMessage(null);
 
-    fetch(url)
+    if (!abortController.current) {
+      abortController.current.abort();
+    }
+
+    abortController.current = new AbortController();
+
+    fetch(url, { signal: abortController.current.signal })
       .then((response) => {
         if (response.ok) return response.json();
         else {
