@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 
-export default function useFetch(url) {
+export default function useFetch(url, options) {
   const [data, setData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState(null);
@@ -10,13 +10,13 @@ export default function useFetch(url) {
     setData(null);
     setErrorMessage(null);
 
-    if (!abortController.current) {
+    if (abortController?.current) {
       abortController.current.abort();
     }
 
     abortController.current = new AbortController();
 
-    fetch(url, { signal: abortController.current.signal })
+    fetch(url, { ...options, signal: abortController.current.signal })
       .then((response) => {
         if (response.ok) return response.json();
         else {
@@ -37,7 +37,7 @@ export default function useFetch(url) {
       .finally(() => {
         setIsLoading(false);
       });
-  }, [url]);
+  }, [url, options]);
 
   return {
     data,
