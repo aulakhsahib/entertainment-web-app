@@ -1,80 +1,31 @@
 import "./App.css";
-import BrowsePanel from "./components/BrowsePanel/BrowsePanel";
-import BrowserSlider from "./components/BrowseSlider/BrowserSlider";
-
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Layout from "./components/Layout/Layout.jsx";
+import HomePage from "./pages/HomePage/HomePage.jsx";
+import GenrePage from "./pages/GenrePage/GenrePage.jsx";
 function App() {
   return (
-    <>
-      <header></header>
-      <main>
-        <BrowserSlider
-          heading={"Trending"}
-          category={"Movie"}
-          url="https://api.themoviedb.org/3/trending/movie/day?language=en-US"
-        />
-        <BrowsePanel
-          heading={"Popular"}
-          category={"Movie"}
-          url={
-            "https://api.themoviedb.org/3/movie/popular?language=en-US&page=1"
-          }
-        />
-        <BrowsePanel
-          heading={"Now Playing"}
-          category={"Movie"}
-          url={
-            "https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1"
-          }
-        />
-        <BrowsePanel
-          heading={"Upcoming"}
-          category={"Movie"}
-          url={
-            "https://api.themoviedb.org/3/movie/upcoming?language=en-US&page=1"
-          }
-        />
-        <BrowsePanel
-          heading={"Top Rated"}
-          category={"Movie"}
-          url={
-            "https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=1"
-          }
-        />
-        <BrowserSlider
-          heading="Trending"
-          category="TV Series"
-          url="https://api.themoviedb.org/3/trending/tv/day?language=en-US"
-        />
-        <BrowsePanel
-          heading={"Popular"}
-          category={"TV Series"}
-          url={
-            "https://api.themoviedb.org/3/tv/popular?language=en-US&page=1"
-          }
-        />
-        <BrowsePanel
-          heading={"Airing Today"}
-          category={"TV Series"}
-          url={
-            "https://api.themoviedb.org/3/tv/airing_today?language=en-US&page=1"
-          }
-        />
-        <BrowsePanel
-          heading={"On Air"}
-          category={"TV Series"}
-          url={
-            "https://api.themoviedb.org/3/tv/on_the_air"
-          }
-        />
-        <BrowsePanel
-          heading={"Top Rated"}
-          category={"TV Series"}
-          url={
-            "https://api.themoviedb.org/3/tv/top_rated"
-          }
-        />
-      </main>
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<HomePage />} />
+          <Route
+            path="movie"
+            element={
+              <GenrePage url="https://api.themoviedb.org/3/genre/movie/list" category="movie"/>
+            }
+          />
+          <Route
+            path="tv"
+            element={
+              <GenrePage url=" https://api.themoviedb.org/3/genre/tv/list" category="tv"/>
+            }
+          />
+          <Route path="movie/:id" element="" />
+          <Route path="tv/:id" element="" />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
 
