@@ -106,6 +106,33 @@ you want to refine and perfect.
 4. TMDB API paths
 5. How to integrate TMDB API paths with the React Router
 
+## Paths
+
+1. /
+2. /movies
+3. /tv
+4. /movies/ || /movies/discover/ (useSearchParams)
+5. /tv || /tv/discover/ (useSearchParams)
+6. /tv/genre/
+7. /movies/genre
+8. movies/:id
+9. tv/:id
+10. movies/trending (useSearchParams for pagination)
+11. movies/popular
+12. movies/nowplaying
+13. movies/upcoming
+14. movies/toprated
+15. tv/trending
+16. tv/popular
+17. tv/airing
+18. tv/onair
+19. tv/top
+
+All paths from 10 to 19 will show a same component.
+
+Adding the case of when page is not given in search parameters default to 1.
+Add the same for discover when the genre is not given.
+
 ## Author
 
 - Website - [Add your name here](https://www.your-site.com)

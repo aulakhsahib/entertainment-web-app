@@ -2,9 +2,10 @@
 import useFetch from "../../hooks/useFetch";
 import useEntertainment from "../../hooks/useEntertainment";
 import "./GenrePage.css";
+import { Link } from "react-router-dom";
 
-export default function GenrePage( {url, category}) {
-  const {apiRequestOptions} = useEntertainment();
+export default function GenrePage({ url }) {
+  const { apiRequestOptions } = useEntertainment();
 
   const { data, isLoading, errorMessage } = useFetch(url, apiRequestOptions);
 
@@ -16,7 +17,9 @@ export default function GenrePage( {url, category}) {
     return (
       <section>
         {genres.map((genre, index) => (
-          <p key={index}>{genre.name}</p>
+          <Link key={index} relative="path" to={`../discover?genre=${genre.id}&page=1`}>
+            {genre.name}
+          </Link>
         ))}
       </section>
     );
