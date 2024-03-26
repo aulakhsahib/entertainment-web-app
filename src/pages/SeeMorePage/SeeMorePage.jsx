@@ -1,26 +1,18 @@
-import { Link, useSearchParams, useLocation } from "react-router-dom";
-import "./DiscoverPage.css";
+/* eslint-disable react/prop-types */
 import useFetch from "../../hooks/useFetch";
 import useEntertainment from "../../hooks/useEntertainment";
+import { Link, useSearchParams } from "react-router-dom";
 
-export default function DiscoverPage() {
-  const { pathname } = useLocation();
-
-  let category = pathname.match(/\/([^/]+)\//)[1];
-  if (category === "movies") category = "movie";
-
+import "./SeeMorePage.css";
+export default function SeeMorePage({ seeMorePath }) {
   const { apiRequestOptions } = useEntertainment();
 
   const [searchParams, setSearchParams] = useSearchParams();
 
   const currentPageNumber = parseInt(searchParams.get("page")) || 1;
 
-  const genreQuery = searchParams.get("genre")
-    ? `&with_genres${searchParams.get("genre")}`
-    : "";
-
   const { data, isLoading, errorMessage } = useFetch(
-    `https://api.themoviedb.org/3/discover/${category}?page=${currentPageNumber}${genreQuery}`.trim(),
+    `https://api.themoviedb.org/3/${seeMorePath}?page=${currentPageNumber}`.trim(),
     apiRequestOptions
   );
 
@@ -70,9 +62,3 @@ export default function DiscoverPage() {
       </section>
     );
 }
-
-/* 
-1. When genre is not available
-2. When page is available
-3. Getting the category of the media (Change it in the urlString)
-*/

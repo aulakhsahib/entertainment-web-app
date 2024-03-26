@@ -3,7 +3,7 @@ import useFetch from "../../hooks/useFetch";
 import useEntertainment from "../../hooks/useEntertainment";
 import { Link } from "react-router-dom";
 import "./BrowserSlider.css";
-export default function BrowserSlider({ heading, category, url }) {
+export default function BrowserSlider({ heading, category, url, to }) {
   const { apiRequestOptions } = useEntertainment();
   const { data, isLoading, errorMessage } = useFetch(url, apiRequestOptions);
 
@@ -15,10 +15,12 @@ export default function BrowserSlider({ heading, category, url }) {
   else
     return (
       <>
-        {console.log(data.results)}
-        <h2>
-          {heading} | {category}
-        </h2>
+        <div style={{ display: "flex", justifyContent: "space-between" }}>
+          <h2>
+            {heading} | {category}
+          </h2>
+          <Link to={to}>See More</Link>
+        </div>
         <section className="media-scroller scroll-snapping">
           {data.results.slice(0, 11).map((d, index) => (
             <Link key={index} to={`${urlCategory}/${d.id}`}>

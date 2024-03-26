@@ -4,7 +4,7 @@ import useEntertainment from "../../hooks/useEntertainment.jsx";
 import "./BrowsePanel.css";
 import { Link } from "react-router-dom";
 
-export default function BrowsePanel({ heading, category, url }) {
+export default function BrowsePanel({ heading, category, url, to }) {
   const { apiRequestOptions } = useEntertainment();
   const { data, isLoading, errorMessage } = useFetch(url, apiRequestOptions);
 
@@ -16,9 +16,12 @@ export default function BrowsePanel({ heading, category, url }) {
   else
     return (
       <section>
-        <h2>
-          {heading} | {category}
-        </h2>
+        <div style={{ display: "flex", justifyContent: "space-between" }}>
+          <h2>
+            {heading} | {category}
+          </h2>
+          <Link to={to}>See More</Link>
+        </div>
         <article>
           {data.results.slice(0, 6).map((d, index) => (
             <Link key={index} to={`${urlCategory}/${d.id}`}>
