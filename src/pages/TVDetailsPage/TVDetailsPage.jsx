@@ -19,6 +19,7 @@ export default function TVDetailsPage() {
   else if (!Object.keys(tvData).length) return <p>Sorry No Data Found</p>;
   else
     return (
+
       <section>
         <p>Poster : {tvData.poster_path}</p>
         <p>Title : {tvData.title}</p>
