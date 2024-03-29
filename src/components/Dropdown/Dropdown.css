@@ -1,0 +1,31 @@
+.dropdown-parent-container {
+    --container-padding: 0.5rem;
+    --container-border-radius: 0.25rem;
+    width: max-content;
+}
+
+.dropdown-label-container {
+    display: flex;
+    align-items: center;
+    column-gap: 1rem;
+    border-radius: var(--container-border-radius);
+    border: 2px solid lightgray;
+    padding: var(--container-padding);
+}
+
+.options-list {
+    padding: var(--container-padding);
+    border-radius: var(--container-border-radius);
+    border: 2px solid lightgray;
+    background-color: antiquewhite;
+    margin-top: 1px;    
+    
+    /* width: 100%; */
+}
+
+.options-list>li {
+    padding: 2px;
+}
+.options-list>li:hover {
+    background-color: grey;
+}
