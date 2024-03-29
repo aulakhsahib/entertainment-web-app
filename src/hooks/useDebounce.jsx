@@ -27,10 +27,7 @@ export default function useDebounce(initialValue, delay = 500) {
     return debouncedSetter.cancel();
   }, [debouncedSetter]);
 
-  return {
-    value,
-    setValueWithDebounce: debouncedSetter.call,
-  };
+  return [value, debouncedSetter.call];
 }
 
 //Added a copy for the state
