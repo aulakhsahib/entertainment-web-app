@@ -11,19 +11,39 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
+        {/* Movie Routes */}
+        <Route index element={<HomePage />} />
+        <Route path="movies" element={<Navigate to="/movies/discover" />} />
+        <Route
+          path="movies/genre"
+          element={
+            <GenrePage
+              url="https://api.themoviedb.org/3/genre/movie/list"
+              category="movie"
+            />
+          }
+        />
+        <Route path="movies/:id" element={<MovieDetailsPage />} />
+        <Route
+          path="movies/discover"
+          element={<DiscoverPage category="movies" />}
+        />
+        {/* TV Routes */}
+        <Route path="tv" element={<Navigate to="/tv/discover" />} />
+        <Route
+          path="tv/genre"
+          element={
+            <GenrePage
+              url=" https://api.themoviedb.org/3/genre/tv/list"
+              category="tv"
+            />
+          }
+        />
+        <Route path="tv/:id" element={<TVDetailsPage />} />
+        <Route path="tv/discover" element={<DiscoverPage category="tv" />} />
+
+
         <Route path="/" element={<Layout />}>
-          <Route index element={<HomePage />} />
-          <Route path="movies" element={<Navigate to="/movies/discover" />} />
-          <Route path="tv" element={<Navigate to="/tv/discover" />} />
-          <Route
-            path="movies/genre"
-            element={
-              <GenrePage
-                url="https://api.themoviedb.org/3/genre/movie/list"
-                category="movie"
-              />
-            }
-          />
           {[
             "movies/trending",
             "movies/popular",
@@ -56,22 +76,6 @@ function App() {
               />
             );
           })}
-          <Route
-            path="tv/genre"
-            element={
-              <GenrePage
-                url=" https://api.themoviedb.org/3/genre/tv/list"
-                category="tv"
-              />
-            }
-          />
-          <Route path="movies/:id" element={<MovieDetailsPage />} />
-          <Route path="tv/:id" element={<TVDetailsPage />} />
-          <Route
-            path="movies/discover"
-            element={<DiscoverPage category="movies" />}
-          />
-          <Route path="tv/discover" element={<DiscoverPage category="tv" />} />
         </Route>
       </Routes>
     </BrowserRouter>
@@ -83,3 +87,11 @@ export default App;
 1. Discover Page Logic https://api.themoviedb.org/3/discover/movie?page=1&with_genres=a  https://api.themoviedb.org/3/discover/movie?page=1
 2. Pagination Page Logic
 */
+
+function MovieRoutes() {
+  return <></>;
+}
+
+function TVRoutes() {
+  return <></>;
+}

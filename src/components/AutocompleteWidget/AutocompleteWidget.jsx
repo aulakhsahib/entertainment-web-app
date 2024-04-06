@@ -5,6 +5,7 @@ import useDebounce from "../../hooks/useDebounce";
 import useUpdateEffect from "../../hooks/useUpdateEffect";
 import { Link } from "react-router-dom";
 import Dropdown from "../Dropdown/Dropdown";
+import { useEventListener } from "../../hooks/useEventListener";
 
 export default function AutocompleteWidget() {
   const [data, setData] = useState(null);
@@ -13,46 +14,11 @@ export default function AutocompleteWidget() {
 
   const [searchInput, setSearchInput] = useState("");
   const [searchQuery, setValueWithDebounce] = useDebounce();
-
-  const { apiRequestOptions } = useEntertainment();
-
+  const [areResultsVisible, setAreResultsVisible] = useState(!!searchInput);
   const resultsContainer = useRef(null);
 
-  const [areResultsVisible, setAreResultsVisible] = useState(!!searchInput);
-
-  const [dropdownState, setDropdownState] = useState({
-    searchCategorySelectionDropdown: {
-      selectedValue: { link: "", category: "" },
-      options: [
-        {
-          label: "Movies",
-          value: {
-            link: "https://api.themoviedb.org/3/search/movie?query=",
-            category: "movies",
-          },
-        },
-        {
-          label: "TV Series",
-          value: {
-            link: "https://api.themoviedb.org/3/search/tv?query=",
-            category: "tv",
-          },
-        },
-      ],
-    },
-  });
-
-  const modifyDropdownState = (focusedDropdown, newValue) => {
-    setDropdownState((previousDropdownState) => {
-      return {
-        ...previousDropdownState,
-        [focusedDropdown]: {
-          ...previousDropdownState[focusedDropdown],
-          selectedValue: { ...newValue },
-        },
-      };
-    });
-  };
+  const { dropdownState, modifyDropdownState, apiRequestOptions } =
+    useEntertainment();
 
   useEffect(() => {
     setValueWithDebounce(searchInput);
@@ -94,21 +60,15 @@ export default function AutocompleteWidget() {
       });
   }, [searchQuery, apiRequestOptions]);
 
-  useEffect(() => {
-    const handleBodyClick = (e) => {
-      if (!resultsContainer.current) return;
+  const handleBodyClick = (e) => {
+    if (!resultsContainer.current) return;
 
-      if (!resultsContainer.current.contains(e.target)) {
-        setAreResultsVisible(false);
-      }
-    };
+    if (!resultsContainer.current.contains(e.target)) {
+      setAreResultsVisible(false);
+    }
+  };
 
-    document.body.addEventListener("click", handleBodyClick, true);
-
-    return () => {
-      document.body.removeEventListener("click", handleBodyClick);
-    };
-  }, []);
+  useEventListener("click", handleBodyClick, document.body, true);
 
   if (!areResultsVisible)
     return (

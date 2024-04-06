@@ -1,9 +1,43 @@
 /* eslint-disable react/prop-types */
-import { useMemo, createContext } from "react";
+import { useState, useMemo, createContext } from "react";
 
 const EntertainmentContext = createContext();
 
 export function EntertainmentProvider({ children }) {
+  const [dropdownState, setDropdownState] = useState({
+    searchCategorySelectionDropdown: {
+      selectedValue: { link: "", category: "" },
+      options: [
+        {
+          label: "Movies",
+          value: {
+            link: "https://api.themoviedb.org/3/search/movie?query=",
+            category: "movies",
+          },
+        },
+        {
+          label: "TV Series",
+          value: {
+            link: "https://api.themoviedb.org/3/search/tv?query=",
+            category: "tv",
+          },
+        },
+      ],
+    },
+  });
+
+  const modifyDropdownState = (focusedDropdown, newValue) => {
+    setDropdownState((previousDropdownState) => {
+      return {
+        ...previousDropdownState,
+        [focusedDropdown]: {
+          ...previousDropdownState[focusedDropdown],
+          selectedValue: { ...newValue },
+        },
+      };
+    });
+  };
+
   const apiRequestOptions = useMemo(() => {
     return {
       method: "GET",
@@ -15,7 +49,9 @@ export function EntertainmentProvider({ children }) {
     };
   }, []);
   return (
-    <EntertainmentContext.Provider value={{ apiRequestOptions }}>
+    <EntertainmentContext.Provider
+      value={{ dropdownState, modifyDropdownState, apiRequestOptions }}
+    >
       {children}
     </EntertainmentContext.Provider>
   );

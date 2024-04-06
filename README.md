@@ -98,6 +98,11 @@ you want to refine and perfect.
 10. Learn useReducer and custom hooks.
 11. Loading animation when loading a new page.
 
+12. Debouncing State
+13. Keyboard Navigation autocomplete
+14. Suspense, Error Boundary
+15. Dropdown useReducer
+
 ## Learn Order
 
 1. Custom Hooks and useFetch and use even more custom hooks if needed.
