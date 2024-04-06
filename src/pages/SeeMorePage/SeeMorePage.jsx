@@ -11,10 +11,9 @@ export default function SeeMorePage({ seeMorePath }) {
 
   const currentPageNumber = parseInt(searchParams.get("page")) || 1;
 
-  const { data, isLoading, errorMessage } = useFetch(
-    `https://api.themoviedb.org/3/${seeMorePath}?page=${currentPageNumber}`.trim(),
-    apiRequestOptions
-  );
+  const apiUrl =
+    `https://api.themoviedb.org/3/${seeMorePath}?page=${currentPageNumber}`.trim();
+  const { data, isLoading, errorMessage } = useFetch(apiUrl, apiRequestOptions);
 
   const totalPages = data?.total_pages;
   console.log(totalPages);

@@ -2,15 +2,22 @@ import { useState, useEffect, useMemo } from "react";
 
 function debounce(fn, delay = 500) {
   let timerId;
+  let isDebouncing = false;
   return {
-    call(...args) {
+    get isDebouncing() {
+      return isDebouncing;
+    },
+    call: (...args) => {
+      isDebouncing = true;
       if (timerId) clearTimeout(timerId);
       timerId = setTimeout(() => {
         fn(...args);
+        isDebouncing = false;
       }, delay);
     },
-    cancel() {
+    cancel: () => {
       clearTimeout(timerId);
+      isDebouncing = false;
     },
   };
 }
@@ -19,7 +26,7 @@ export default function useDebounce(initialValue, delay = 500) {
   const [value, setValue] = useState(initialValue);
 
   const debouncedSetter = useMemo(
-    () => debounce((newValue) => setValue(() => newValue), delay),
+    () => debounce((newValue) => setValue(newValue), delay),
     [delay]
   );
 
@@ -27,7 +34,7 @@ export default function useDebounce(initialValue, delay = 500) {
     return debouncedSetter.cancel();
   }, [debouncedSetter]);
 
-  return [value, debouncedSetter.call];
+  return [value, debouncedSetter.call, debouncedSetter.isDebouncing];
 }
 
 //Added a copy for the state

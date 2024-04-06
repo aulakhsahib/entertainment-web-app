@@ -7,9 +7,11 @@ import MovieDetailsPage from "./pages/MovieDetailsPage/MovieDetailsPage.jsx";
 import TVDetailsPage from "./pages/TVDetailsPage/TVDetailsPage.jsx";
 import DiscoverPage from "./pages/DiscoverPage/DiscoverPage.jsx";
 import SeeMorePage from "./pages/SeeMorePage/SeeMorePage.jsx";
+import AutocompleteWidget from "./components/AutocompleteWidget/AutocompleteWidget.jsx";
 function App() {
   return (
     <BrowserRouter>
+    <AutocompleteWidget />
       <Routes>
         {/* Movie Routes */}
         <Route index element={<HomePage />} />
@@ -42,7 +44,6 @@ function App() {
         <Route path="tv/:id" element={<TVDetailsPage />} />
         <Route path="tv/discover" element={<DiscoverPage category="tv" />} />
 
-
         <Route path="/" element={<Layout />}>
           {[
             "movies/trending",
@@ -56,18 +57,7 @@ function App() {
             "tv/on_the_air",
             "tv/top_rated",
           ].map((path, index) => {
-            let seeMorePath = path;
-            if (path.includes("trending")) {
-              if (path.includes("movies")) {
-                seeMorePath = "trending/movie/day";
-              } else {
-                seeMorePath = "trending/tv/day";
-              }
-            }
-
-            if (seeMorePath.includes("movies")) {
-              seeMorePath = seeMorePath.replace("movies", "movie");
-            }
+            const seeMorePath = transformedPath(path);
             return (
               <Route
                 key={index}
@@ -83,15 +73,17 @@ function App() {
 }
 
 export default App;
-/* 
-1. Discover Page Logic https://api.themoviedb.org/3/discover/movie?page=1&with_genres=a  https://api.themoviedb.org/3/discover/movie?page=1
-2. Pagination Page Logic
-*/
 
-function MovieRoutes() {
-  return <></>;
-}
+function transformedPath(path) {
+  let seeMorePath;
+  if (path.includes("trending") && path.includes("movies")) {
+    seeMorePath = "trending/movie/day";
+  } else if (path.includes("trending") && path.includes("tv")) {
+    seeMorePath = "trending/tv/day";
+  }
 
-function TVRoutes() {
-  return <></>;
+  if (!seeMorePath) {
+    seeMorePath = path.replace("movies", "movie");
+  }
+  return seeMorePath;
 }

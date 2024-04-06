@@ -5,13 +5,11 @@ import useEntertainment from "../../hooks/useEntertainment";
 
 export default function DiscoverPage() {
   const { pathname } = useLocation();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const { apiRequestOptions } = useEntertainment();
 
   let category = pathname.match(/\/([^/]+)\//)[1];
   if (category === "movies") category = "movie";
-
-  const { apiRequestOptions } = useEntertainment();
-
-  const [searchParams, setSearchParams] = useSearchParams();
 
   const currentPageNumber = parseInt(searchParams.get("page")) || 1;
 
@@ -19,10 +17,9 @@ export default function DiscoverPage() {
     ? `&with_genres${searchParams.get("genre")}`
     : "";
 
-  const { data, isLoading, errorMessage } = useFetch(
-    `https://api.themoviedb.org/3/discover/${category}?page=${currentPageNumber}${genreQuery}`.trim(),
-    apiRequestOptions
-  );
+  const apiUrl =
+    `https://api.themoviedb.org/3/discover/${category}?page=${currentPageNumber}${genreQuery}`.trim();
+  const { data, isLoading, errorMessage } = useFetch(apiUrl, apiRequestOptions);
 
   const totalPages = data?.total_pages;
   console.log(totalPages);

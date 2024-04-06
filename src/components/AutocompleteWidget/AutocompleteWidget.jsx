@@ -13,7 +13,7 @@ export default function AutocompleteWidget() {
   const [errorMessage, setErrorMessage] = useState(null);
 
   const [searchInput, setSearchInput] = useState("");
-  const [searchQuery, setValueWithDebounce] = useDebounce();
+  const [searchQuery, setValueWithDebounce, isDebouncing] = useDebounce();
   const [areResultsVisible, setAreResultsVisible] = useState(!!searchInput);
   const resultsContainer = useRef(null);
 
@@ -115,7 +115,9 @@ export default function AutocompleteWidget() {
           />
 
           <div id="results-section" ref={resultsContainer}>
-            {isLoading ? (
+            {isDebouncing ? (
+              <p>Waiting For User Input...</p>
+            ) : isLoading ? (
               <p>Loading...</p>
             ) : errorMessage ? (
               <p>Error: {errorMessage}</p>
