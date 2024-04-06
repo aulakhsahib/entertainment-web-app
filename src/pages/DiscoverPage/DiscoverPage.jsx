@@ -22,7 +22,6 @@ export default function DiscoverPage() {
   const { data, isLoading, errorMessage } = useFetch(apiUrl, apiRequestOptions);
 
   const totalPages = data?.total_pages;
-  console.log(totalPages);
 
   if (isLoading) return <p>Loading...</p>;
   else if (errorMessage) return <p>{errorMessage}</p>;

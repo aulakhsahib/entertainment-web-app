@@ -7,44 +7,43 @@ import MovieDetailsPage from "./pages/MovieDetailsPage/MovieDetailsPage.jsx";
 import TVDetailsPage from "./pages/TVDetailsPage/TVDetailsPage.jsx";
 import DiscoverPage from "./pages/DiscoverPage/DiscoverPage.jsx";
 import SeeMorePage from "./pages/SeeMorePage/SeeMorePage.jsx";
-import AutocompleteWidget from "./components/AutocompleteWidget/AutocompleteWidget.jsx";
 function App() {
   return (
     <BrowserRouter>
-    <AutocompleteWidget />
       <Routes>
-        {/* Movie Routes */}
-        <Route index element={<HomePage />} />
-        <Route path="movies" element={<Navigate to="/movies/discover" />} />
-        <Route
-          path="movies/genre"
-          element={
-            <GenrePage
-              url="https://api.themoviedb.org/3/genre/movie/list"
-              category="movie"
-            />
-          }
-        />
-        <Route path="movies/:id" element={<MovieDetailsPage />} />
-        <Route
-          path="movies/discover"
-          element={<DiscoverPage category="movies" />}
-        />
-        {/* TV Routes */}
-        <Route path="tv" element={<Navigate to="/tv/discover" />} />
-        <Route
-          path="tv/genre"
-          element={
-            <GenrePage
-              url=" https://api.themoviedb.org/3/genre/tv/list"
-              category="tv"
-            />
-          }
-        />
-        <Route path="tv/:id" element={<TVDetailsPage />} />
-        <Route path="tv/discover" element={<DiscoverPage category="tv" />} />
-
         <Route path="/" element={<Layout />}>
+          {/* Movie Routes */}
+          <Route index element={<HomePage />} />
+          <Route path="movies" element={<Navigate to="/movies/discover" />} />
+          <Route
+            path="movies/genre"
+            element={
+              <GenrePage
+                url="https://api.themoviedb.org/3/genre/movie/list"
+                category="movie"
+              />
+            }
+          />
+          <Route path="movies/:id" element={<MovieDetailsPage />} />
+          <Route
+            path="movies/discover"
+            element={<DiscoverPage category="movies" />}
+          />
+          {/* TV Routes */}
+          <Route path="tv" element={<Navigate to="/tv/discover" />} />
+          <Route
+            path="tv/genre"
+            element={
+              <GenrePage
+                url=" https://api.themoviedb.org/3/genre/tv/list"
+                category="tv"
+              />
+            }
+          />
+          <Route path="tv/:id" element={<TVDetailsPage />} />
+          <Route path="tv/discover" element={<DiscoverPage category="tv" />} />
+
+          {/* See More Page Routes */}
           {[
             "movies/trending",
             "movies/popular",
