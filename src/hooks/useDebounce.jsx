@@ -21,6 +21,23 @@ function debounce(fn, delay = 500) {
     },
   };
 }
+// function debounce(fn, delay = 500) {
+//   let timerId;
+//   return {
+//     isDebouncing: false,
+//     call(...args) {
+//       this.isDebouncing = true;
+//       if (timerId) clearTimeout(timerId);
+//       timerId = setTimeout(() => {
+//         fn(...args);
+//         this.isDebouncing = false;
+//       }, delay);
+//     },
+//     cancel() {
+//       clearTimeout(timerId);
+//     },
+//   };
+// }
 
 export default function useDebounce(initialValue, delay = 500) {
   const [value, setValue] = useState(initialValue);

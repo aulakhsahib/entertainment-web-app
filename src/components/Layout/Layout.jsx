@@ -1,15 +1,12 @@
-import { NavLink, Outlet } from "react-router-dom";
-import "./Layout.css";
+import { Outlet } from "react-router-dom";
 import AutocompleteWidget from "../AutocompleteWidget/AutocompleteWidget";
+import "./Layout.css";
+import Navbar from "../Navbar/Navbar";
 
 export default function Layout() {
   return (
     <>
-      <nav>
-        <NavLink to="/">Home</NavLink>
-        <NavLink to="movies/genre">Movies</NavLink>
-        <NavLink to="tv/genre">TV Series</NavLink>
-      </nav>
+      <Navbar />
       <AutocompleteWidget />
       <Outlet />
     </>

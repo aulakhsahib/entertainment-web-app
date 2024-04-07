@@ -7,7 +7,7 @@ import { useEffect, useRef } from "react";
  * @param {function} callback - The callback function to execute when the event is triggered.
  * @param {Object} [element=window] - The DOM element to which the event listener will be added. Defaults to the global window object.
  */
-export function useEventListener(
+export default function useEventListener(
   eventType,
   callback,
   element = window,

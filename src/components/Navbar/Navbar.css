@@ -1,0 +1,23 @@
+.main-navigation {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+}
+
+.navbar-logo-container {
+  display: flex;
+  column-gap: 1rem;
+}
+
+.navbar-logo {
+  width: 30px;
+}
+
+.user-img {
+  width: 40px;
+}
+
+.active-nav-logo path {
+  fill: #FC4747;
+}

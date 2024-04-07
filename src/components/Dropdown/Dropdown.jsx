@@ -1,6 +1,10 @@
 /* eslint-disable react/prop-types */
-import { useState, useEffect, useRef } from "react";
+import { useState, useRef } from "react";
 import "./Dropdown.css";
+import useEffectOnce from "../../hooks/useEffectOnce.jsx";
+import useEventListener from "../../hooks/useEventListener.jsx";
+import upArrow from "../../assets/chevron-up.svg";
+import downArrow from "../../assets/chevron-down.svg";
 
 export default function Dropdown({
   id,
@@ -19,26 +23,23 @@ export default function Dropdown({
     setIsOpen(!isOpen);
   };
 
-  useEffect(() => {
+  const setDropdownLabelAndValue = () => {
     if (!selectionLabel) {
       modifyDropdownState(id, options[0].value);
       setSelectedValueLabel(options[0].label);
     }
+  };
 
-    const handleBodyClick = (e) => {
-      if (!dropdownContainer.current) return;
+  const handleBodyClick = (e) => {
+    if (!dropdownContainer.current) return;
+    if (!dropdownContainer.current.contains(e.target)) {
+      setIsOpen(false);
+    }
+  };
 
-      if (!dropdownContainer.current.contains(e.target)) {
-        setIsOpen(false);
-      }
-    };
+  useEffectOnce(setDropdownLabelAndValue);
 
-    document.body.addEventListener("click", handleBodyClick, true);
-
-    return () => {
-      document.body.removeEventListener("click", handleBodyClick);
-    };
-  }, []);
+  useEventListener("click", handleBodyClick, document.body);
 
   return (
     <>
@@ -51,9 +52,11 @@ export default function Dropdown({
           <p className="dropdown-label">
             {selectedValueLabel || selectionLabel}
           </p>
-          {/* <IoIosArrowDropdownCircle /> */}
-          &darr;
-        </div>
+          {isOpen ? (
+            <img src={upArrow} width="10px" alt="" />
+          ) : (
+            <img width="10px" src={downArrow} />
+          )}
         {isOpen && (
           <ul className="options-list">
             {options.map((o, index) => (
@@ -63,18 +66,8 @@ export default function Dropdown({
             ))}
           </ul>
         )}
+        </div>
       </div>
-      {/* <p>Selected Value is {value}</p> */}
     </>
   );
 }
-
-/* 
-
-Lessons Learnt
-1. Showing the selected label in dropdown container.
-2. Closing Dropdown after selecting the value.
-3. If selectionLabel is given show it as default with its value as empty string, other wise show the first option and set its value as selected value.
-4. Close the dropdown when user click anywhere but that dropdown.
-5. Event Capturing and useRef.
-*/
