@@ -25,3 +25,14 @@ li {
   margin: 0;
   padding: 0;
 }
+
+:root {
+  --red: hsl(0, 97%, 63%);
+  --blue: hsl(223, 23%, 46%);
+  --dark-blue: hsl(223, 36%, 14%);
+  --darker-blue: hsl(223, 30%, 9%);
+}
+
+body {
+  background-color: var(--darker-blue);
+}

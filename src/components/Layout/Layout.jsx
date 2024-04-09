@@ -5,10 +5,14 @@ import Navbar from "../Navbar/Navbar";
 
 export default function Layout() {
   return (
-    <>
-      <Navbar />
-      <AutocompleteWidget />
-      <Outlet />
-    </>
+    <div className="main-content-container">
+      <Navbar className="navbar-container" />
+      <div>
+        <AutocompleteWidget />
+      </div>
+      <div>
+        <Outlet />
+      </div>
+    </div>
   );
 }

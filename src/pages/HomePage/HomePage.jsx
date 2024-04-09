@@ -5,8 +5,7 @@ import "./HomePage.css";
 export default function HomePage() {
   return (
     <>
-      <header></header>
-      <main>
+      <main className="home-page">
         <BrowserSlider
           heading={"Trending"}
           category={"Movie"}

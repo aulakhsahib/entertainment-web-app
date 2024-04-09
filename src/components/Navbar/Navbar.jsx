@@ -1,16 +1,16 @@
+/* eslint-disable react/prop-types */
 import { NavLink } from "react-router-dom";
 import mainLogo from "../../assets/logo.svg";
 import userImg from "../../assets/image-avatar.png";
 import "./Navbar.css";
 
-export default function Navbar() {
+export default function Navbar({ className }) {
   return (
-    <nav className="main-navigation">
+    <nav className={`main-navigation ${className}`}>
       <NavLink to="/">
         <img src={mainLogo} alt="main-logo" />
       </NavLink>
 
-      {/* <div className="navbar-logo-container"> */}
       <NavLink
         to="movies/genre"
         className={({ isActive }) => (isActive ? "active-nav-logo" : "")}
@@ -33,7 +33,6 @@ export default function Navbar() {
           />
         </svg>
       </NavLink>
-      {/* </div> */}
 
       <img src={userImg} alt="creator" className="user-img" />
     </nav>
