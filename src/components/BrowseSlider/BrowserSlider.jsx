@@ -15,21 +15,24 @@ export default function BrowserSlider({ heading, category, url, to }) {
   else
     return (
       <>
-        <div style={{ display: "flex", justifyContent: "space-between" }}>
-          <h2>
-            {heading} | {category}
-          </h2>
-          <Link to={to}>See More</Link>
+        <div className="slider-container">
+          <div className="slider-header">
+            <div className="slider-category-container">
+              <h2>{heading}</h2>
+              <span>{category}</span>
+            </div>
+            <Link className="see-more-link" to={to}>See More</Link>
+          </div>
         </div>
         <section className="media-scroller scroll-snapping">
           {data.results.slice(0, 11).map((d, index) => (
-            <Link key={index} to={`${urlCategory}/${d.id}`}>
+            <Link className="movie-slider-poster" key={index} to={`${urlCategory}/${d.id}`}>
               <div className="media-group">
                 <img
-                  src={`https://image.tmdb.org/t/p/w342${d.poster_path}`}
+                  src={`https://image.tmdb.org/t/p/w780${d.poster_path}`}
                   alt=""
                 />
-                <p>{d.title || d.name}</p>
+                <p className="movie-title-slider">{d.title || d.name}</p>
               </div>
             </Link>
           ))}
