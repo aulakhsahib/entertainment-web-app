@@ -1,6 +1,7 @@
 .autocomplete-widget-main-container {
   display: flex;
   justify-content: center;
+  margin-top: 2rem;
 }
 
 .search-bar {

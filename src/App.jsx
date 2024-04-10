@@ -7,10 +7,12 @@ import MovieDetailsPage from "./pages/MovieDetailsPage/MovieDetailsPage.jsx";
 import TVDetailsPage from "./pages/TVDetailsPage/TVDetailsPage.jsx";
 import DiscoverPage from "./pages/DiscoverPage/DiscoverPage.jsx";
 import SeeMorePage from "./pages/SeeMorePage/SeeMorePage.jsx";
+import MockupPage from "./pages/MockupPage/MockupPage.jsx";
 function App() {
   return (
     <BrowserRouter>
       <Routes>
+        <Route path="mockup" element={<MockupPage />} />
         <Route path="/" element={<Layout />}>
           {/* Movie Routes */}
           <Route index element={<HomePage />} />

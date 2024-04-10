@@ -16,19 +16,33 @@ export default function BrowsePanel({ heading, category, url, to }) {
   else
     return (
       <section>
-        <div style={{ display: "flex", justifyContent: "space-between" }}>
-          <h2>
-            {heading} | {category}
-          </h2>
-          <Link to={to}>See More</Link>
-        </div>
-        <article>
-          {data.results.slice(0, 6).map((d, index) => (
-            <Link key={index} to={`${urlCategory}/${d.id}`}>
-              <p>{d.title || d.name}</p>
+        <div className="panel-container">
+          <div className="slider-header">
+            <div className="slider-category-container">
+              <h2>{heading}</h2>
+              <span>{category}</span>
+            </div>
+            <Link className="see-more-link" to={to}>
+              See More
             </Link>
-          ))}
-        </article>
+          </div>
+        </div>
+        <div className="panel-items">
+          {data.results.slice(0, 8).map((d, index) => {
+            console.log(d);
+            return (
+              <Link className="movie-panel-poster" key={index} to={`${urlCategory}/${d.id}`}>
+                <div className="panel-item">
+                  <img
+                    src={`https://image.tmdb.org/t/p/w780${d.poster_path}`}
+                    alt=""
+                  />
+                  <p>{d.title || d.name}</p>
+                </div>
+              </Link>
+            );
+          })}
+        </div>
       </section>
     );
 }

@@ -26,6 +26,11 @@ li {
   padding: 0;
 }
 
+img {
+  max-width: 100%;
+  height: auto;
+}
+
 :root {
   --red: hsl(0, 97%, 63%);
   --blue: hsl(223, 23%, 46%);

@@ -24,6 +24,7 @@ export default function BrowserSlider({ heading, category, url, to }) {
             <Link className="see-more-link" to={to}>See More</Link>
           </div>
         </div>
+
         <section className="media-scroller scroll-snapping">
           {data.results.slice(0, 11).map((d, index) => (
             <Link className="movie-slider-poster" key={index} to={`${urlCategory}/${d.id}`}>
@@ -37,6 +38,7 @@ export default function BrowserSlider({ heading, category, url, to }) {
             </Link>
           ))}
         </section>
+        
       </>
     );
 }
