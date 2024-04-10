@@ -1,0 +1,21 @@
+.discover-container {
+  margin-top: 2rem;
+  width: 90%;
+  margin-inline: auto;
+}
+
+.discover-page-section {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(225px, 1fr));
+  gap: 1rem;
+}
+
+.discover-page-section a {
+  color: var(--blue);
+  text-align: center;
+  text-decoration: none;
+}
+
+.discover-page-section a:hover {
+  text-decoration: underline;
+}

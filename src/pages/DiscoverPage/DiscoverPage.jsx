@@ -1,5 +1,6 @@
 import { Link, useSearchParams, useLocation } from "react-router-dom";
 import "./DiscoverPage.css";
+import PageIndicator from "../../components/PageIndicator/PageIndicator";
 import useFetch from "../../hooks/useFetch";
 import useEntertainment from "../../hooks/useEntertainment";
 
@@ -28,42 +29,37 @@ export default function DiscoverPage() {
   else if (!data.results.length) return <p>Sorry No Data Found</p>;
   else
     return (
-      <section>
-        <article>
+      // <section>
+      //   <article>
+      //     {data.results.map((d, index) => (
+      //       <Link key={index} relative="path" to={`../${d.id}`}>
+      //         <p>{d.title || d.name}</p>
+      //       </Link>
+      //     ))}
+      //   </article>
+      //   <PageIndicator
+      //     {...{ currentPageNumber, totalPages, setSearchParams }}
+      //   />
+      // </section>
+      <div className="discover-container">
+        <section className="discover-page-section">
           {data.results.map((d, index) => (
             <Link key={index} relative="path" to={`../${d.id}`}>
-              <p>{d.title || d.name}</p>
+              {console.log(d)}
+              <div className="">
+                <img
+                  src={`https://image.tmdb.org/t/p/w780${d.poster_path}`}
+                  alt=""
+                />
+                <p>{d.title || d.name}</p>
+              </div>
             </Link>
           ))}
-        </article>
-        {currentPageNumber - 1 > 0 && (
-          <button
-            onClick={() => {
-              setSearchParams((prev) => {
-                prev.set("page", parseInt(currentPageNumber) - 1);
-                return prev;
-              });
-            }}
-          >
-            Previous Page
-          </button>
-        )}
-        <span>
-          {currentPageNumber} of {totalPages}
-        </span>
-        {currentPageNumber + 1 <= totalPages && (
-          <button
-            onClick={() => {
-              setSearchParams((prev) => {
-                prev.set("page", parseInt(currentPageNumber) + 1);
-                return prev;
-              });
-            }}
-          >
-            Next Page
-          </button>
-        )}
-      </section>
+        </section>
+        <PageIndicator
+          {...{ currentPageNumber, totalPages, setSearchParams }}
+        />
+      </div>
     );
 }
 

@@ -1,0 +1,27 @@
+.genre-section {
+  margin-block: 2rem;
+  width: 90%;
+  margin-inline: auto;
+  gap: 1.5rem;
+
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(225px, 1fr));
+}
+
+.genre-link {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 4rem;
+  border-radius: 2rem;
+  text-decoration: none;
+  color: white;
+}
+
+.genre-section > *:nth-child(2n + 1) {
+  background-color: rgb(14, 116, 144);
+}
+
+.genre-section > *:nth-child(2n) {
+  background-color: rgb(23, 30, 49);
+}

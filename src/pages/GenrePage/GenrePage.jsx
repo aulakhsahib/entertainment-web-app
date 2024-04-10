@@ -15,9 +15,9 @@ export default function GenrePage({ url }) {
   else if (!genres.length) return <p>Sorry No Data Found</p>;
   else
     return (
-      <section>
+      <section className="genre-section">
         {genres.map((genre, index) => (
-          <Link key={index} relative="path" to={`../discover?genre=${genre.id}&page=1`}>
+          <Link className="genre-link" key={index} relative="path" to={`../discover?genre=${genre.id}&page=1`}>
             {genre.name}
           </Link>
         ))}
