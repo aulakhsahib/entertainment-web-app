@@ -53,19 +53,23 @@ export default function Dropdown({
             {selectedValueLabel || selectionLabel}
           </p>
           {isOpen ? (
-            <img src={upArrow} width="10px" alt="" />
+            <svg width="10px" className="arrow-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+              <path d="M233.4 105.4c12.5-12.5 32.8-12.5 45.3 0l192 192c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L256 173.3 86.6 342.6c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3l192-192z" />
+            </svg>
           ) : (
-            <img width="10px" src={downArrow} />
+            <svg width="10px" className="arrow-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+              <path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z" />
+            </svg>
           )}
-        {isOpen && (
-          <ul className="options-list">
-            {options.map((o, index) => (
-              <li key={index} onClick={() => handleOptionClick(o)}>
-                {o.label}
-              </li>
-            ))}
-          </ul>
-        )}
+          {isOpen && (
+            <ul className="options-list">
+              {options.map((o, index) => (
+                <li key={index} onClick={() => handleOptionClick(o)}>
+                  {o.label}
+                </li>
+              ))}
+            </ul>
+          )}
         </div>
       </div>
     </>

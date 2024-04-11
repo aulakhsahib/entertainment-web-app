@@ -88,6 +88,14 @@ export default function AutocompleteWidget() {
           setSearchInput("");
         }}
       >
+        <img
+          className="autocomplete-image"
+          src={`https://image.tmdb.org/t/p/w780${result.poster_path}`}
+          alt=""
+        />
+        <p>
+          {new Date(result.release_date || result.first_air_date).getFullYear()}
+        </p>
         <p>{result.title || result.name} </p>
       </Link>
     ));
@@ -121,7 +129,6 @@ export default function AutocompleteWidget() {
             </div>
           )}
         </div>
-        <button>Search</button>
       </form>
     </section>
   );
