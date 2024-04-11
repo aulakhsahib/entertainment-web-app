@@ -29,7 +29,6 @@ export default function BrowsePanel({ heading, category, url, to }) {
         </div>
         <div className="panel-items">
           {data.results.slice(0, 8).map((d, index) => {
-            console.log(d);
             return (
               <Link className="movie-panel-poster" key={index} to={`${urlCategory}/${d.id}`}>
                 <div className="panel-item">
