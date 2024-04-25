@@ -104,11 +104,13 @@ export default function MovieDetailsPage() {
                 <a href={movieData.homepage}>Website</a>
               </button>
             )}
-            <button className="website-button">
-              <a href={`https://www.imdb.com/title/${movieData.imdb_id}`}>
-                IMDB
-              </a>
-            </button>
+            {movieData.imdb_id && (
+              <button className="website-button">
+                <a href={`https://www.imdb.com/title/${movieData.imdb_id}`}>
+                  IMDB
+                </a>
+              </button>
+            )}
           </div>
         </div>
       </section>
