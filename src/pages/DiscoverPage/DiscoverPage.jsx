@@ -45,7 +45,6 @@ export default function DiscoverPage() {
         <section className="discover-page-section">
           {data.results.map((d, index) => (
             <Link key={index} relative="path" to={`../${d.id}`}>
-              {console.log(d)}
               <div className="">
                 <img
                   src={`https://image.tmdb.org/t/p/w780${d.poster_path}`}

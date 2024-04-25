@@ -28,7 +28,6 @@ export default function MovieDetailsPage() {
     );
   }, [movieData]);
 
-  console.log(creditData);
 
   if (movieIsLoading) return <p>Loading...</p>;
   else if (movieErrorMessage) return <p>{movieErrorMessage}</p>;

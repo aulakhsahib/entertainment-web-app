@@ -27,7 +27,6 @@ export default function TVDetailsPage() {
     setGetCreditUrl(`https://api.themoviedb.org/3/tv/${tvData.id}/credits`);
   }, [tvData]);
 
-  console.log(tvData);
   if (isLoading) return <p>Loading...</p>;
   else if (errorMessage) return <p>{errorMessage}</p>;
   else if (!Object.keys(tvData).length) return <p>Sorry No Data Found</p>;

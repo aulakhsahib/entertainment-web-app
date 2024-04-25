@@ -48,7 +48,6 @@ export default function AutocompleteWidget() {
         }
       })
       .then((data) => {
-        console.log(data);
         setData(data);
       })
       .catch((error) => {
