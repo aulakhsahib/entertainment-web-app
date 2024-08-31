@@ -16,27 +16,29 @@ export default function useFetch(url, options) {
 
     abortController.current = new AbortController();
 
-    fetch(url, { ...options, signal: abortController.current.signal })
-      .then((response) => {
-        if (response.ok) return response.json();
-        else {
-          return response.json().then((error) => {
-            throw new Error(
-              `${response.status} ${error.message || response.statusText}`
-            );
-          });
-        }
-      })
-      .then((data) => {
-        setData(data);
-      })
-      .catch((error) => {
-        console.error(error.message);
-        setErrorMessage(error.message);
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
+    if (url) {
+      fetch(url, { ...options, signal: abortController.current.signal })
+        .then((response) => {
+          if (response.ok) return response.json();
+          else {
+            return response.json().then((error) => {
+              throw new Error(
+                `${response.status} ${error.message || response.statusText}`
+              );
+            });
+          }
+        })
+        .then((data) => {
+          setData(data);
+        })
+        .catch((error) => {
+          console.error(error.message);
+          setErrorMessage(error.message);
+        })
+        .finally(() => {
+          setIsLoading(false);
+        });
+    }
   }, [url, options]);
 
   return {

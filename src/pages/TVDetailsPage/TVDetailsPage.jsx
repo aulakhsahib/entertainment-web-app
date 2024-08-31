@@ -24,7 +24,9 @@ export default function TVDetailsPage() {
   } = useFetch(getCreditUrl, apiRequestOptions);
 
   useUpdateEffect(() => {
-    setGetCreditUrl(`https://api.themoviedb.org/3/tv/${tvData.id}/credits`);
+    if (tvData && tvData.id) {
+      setGetCreditUrl(`https://api.themoviedb.org/3/tv/${tvData.id}/credits`);
+    }
   }, [tvData]);
 
   if (isLoading) return <p>Loading...</p>;

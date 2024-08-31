@@ -4,6 +4,7 @@ import useEntertainment from "../../hooks/useEntertainment";
 import useFetch from "../../hooks/useFetch";
 import useUpdateEffect from "../../hooks/useUpdateEffect";
 import { useState } from "react";
+
 export default function MovieDetailsPage() {
   const { id } = useParams();
   const { apiRequestOptions } = useEntertainment();
@@ -23,9 +24,11 @@ export default function MovieDetailsPage() {
   } = useFetch(getCreditUrl, apiRequestOptions);
 
   useUpdateEffect(() => {
-    setGetCreditUrl(
-      `https://api.themoviedb.org/3/movie/${movieData.id}/credits`
-    );
+    if(movieData && movieData.id) {
+      setGetCreditUrl(
+        `https://api.themoviedb.org/3/movie/${movieData.id}/credits`
+      );
+    }
   }, [movieData]);
 
 
